@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🍔 FoodRush - Food Ordering Website
 
 A modern and responsive **Food Ordering Web Application** built using **HTML, CSS, Bootstrap, and JavaScript**, inspired by platforms like Swiggy and Zomato.
@@ -135,3 +136,6 @@ Aayush Porwal
 ## ⭐ Support
 
 If you like this project, please ⭐ the repository!
+=======
+
+>>>>>>> 1992a6864e131a720a697ebf5cccfc0bea834263
