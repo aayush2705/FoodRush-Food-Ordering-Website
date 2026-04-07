@@ -33,7 +33,7 @@ A modern and responsive **Food Ordering Web Application** built using **HTML, CS
 
 ### 🏠 Home Page
 
-(Add your screenshot here)
+https://github.com/aayush2705/FoodRush-Food-Ordering-Website/blob/main/images%2Fhome.jpeg
 
 ### 🌆 City Selection
 
