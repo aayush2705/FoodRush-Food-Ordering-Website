@@ -129,13 +129,11 @@ Payment verification is simulated and not connected to a real payment gateway.
 
 ## 👨‍💻 Author
 
-Aayush Porwal
+Ayush Porwal
 
 ---
 
 ## ⭐ Support
 
 If you like this project, please ⭐ the repository!
-=======
 
->>>>>>> 1992a6864e131a720a697ebf5cccfc0bea834263
