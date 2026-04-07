@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Restaurants</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f4f6f8;
+            font-family: Arial;
+        }
+
+        header {
+            background: #1f3c88;
+            color: white;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .card {
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card img {
+            height: 160px;
+            object-fit: cover;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">FoodRush</div>
+    </header>
+
+    <div class="container py-4">
+
+        <h2 class="text-center mb-4" id="cityTitle"></h2>
+
+        <div class="row g-4" id="restaurantGrid"></div>
+
+    </div>
+
+    <script>
+
+        const restaurants = {
+
+            Mumbai: [
+                { name: "Trishna", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "Leopold Cafe", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de" },
+                { name: "Bademiya", img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" },
+                { name: "Britannia & Co", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" },
+                { name: "Bombay Canteen", img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5" }
+            ],
+
+            Delhi: [
+                { name: "Karim's", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c" },
+                { name: "Bukhara", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" },
+                { name: "Indian Accent", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "Paranthe Wali Gali", img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d" },
+                { name: "Moti Mahal", img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092" }
+            ],
+
+            Bangalore: [
+                { name: "Vidyarthi Bhavan", img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092" },
+                { name: "MTR", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" },
+                { name: "Toit", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de" },
+                { name: "Truffles", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "Empire Restaurant", img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" }
+            ],
+
+            Hyderabad: [
+                { name: "Paradise Biryani", img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398" },
+                { name: "Bawarchi", img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d" },
+                { name: "Shah Ghouse", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c" },
+                { name: "Chutneys", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "Olive Bistro", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" }
+            ],
+
+            Chennai: [
+                { name: "Murugan Idli Shop", img: "https://images.unsplash.com/photo-1589308078059-be1415eab4c3" },
+                { name: "Ratna Cafe", img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d" },
+                { name: "Sangeetha Veg", img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" },
+                { name: "A2B Restaurant", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "Southern Spice", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" }
+            ],
+
+            Kolkata: [
+                { name: "Peter Cat", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" },
+                { name: "Arsalan", img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092" },
+                { name: "Flurys", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "Mocambo", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de" },
+                { name: "Bhojohori Manna", img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" }
+            ],
+
+            Pune: [
+                { name: "Vaishali", img: "https://images.unsplash.com/photo-1589308078059-be1415eab4c3" },
+                { name: "Goodluck Cafe", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "German Bakery", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de" },
+                { name: "Malaka Spice", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" },
+                { name: "Shabree", img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" }
+            ],
+
+            Ahmedabad: [
+                { name: "Agashiye", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c" },
+                { name: "Gordhan Thal", img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092" },
+                { name: "Swati Snacks", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "Rajwadu", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de" },
+                { name: "Tomato's", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" }
+            ],
+
+            Jaipur: [
+                { name: "LMB", img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d" },
+                { name: "1135 AD", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de" },
+                { name: "Handi Restaurant", img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" },
+                { name: "Tapri Central", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "Spice Court", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" }
+            ],
+
+            Lucknow: [
+                { name: "Tunday Kababi", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c" },
+                { name: "Dastarkhwan", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "Royal Cafe", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" },
+                { name: "Idris Biryani", img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398" },
+                { name: "Moti Mahal", img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092" }
+            ],
+
+            Chandigarh: [
+                { name: "Pal Dhaba", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "Virgin Courtyard", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" },
+                { name: "Brooklyn Central", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de" },
+                { name: "Swagath Restaurant", img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" },
+                { name: "Chilli & Pepper", img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d" }
+            ],
+
+            Indore: [
+                { name: "56 Dukan", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "Chappan Bhog", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" },
+                { name: "Apna Sweets", img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" },
+                { name: "Shreemaya Celebrity", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de" },
+                { name: "Johny Hot Dog", img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092" }
+            ],
+
+            Goa: [
+                { name: "Thalassa", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" },
+                { name: "Fisherman's Wharf", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "Martin's Corner", img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" },
+                { name: "Britto's", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de" },
+                { name: "Vinayak Restaurant", img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092" }
+            ],
+
+            Bhopal: [
+                { name: "Manohar Dairy", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "Indian Coffee House", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" },
+                { name: "Shahi Haveli", img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" },
+                { name: "Ranjit Restaurant", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de" },
+                { name: "Pin & Pan", img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092" }
+            ],
+
+            Nagpur: [
+                { name: "Haldiram's", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "Naivedhyam", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" },
+                { name: "Zuree Urban Kitchen", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de" },
+                { name: "Breakfast Story", img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" },
+                { name: "Babbu Hotel", img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092" }
+            ],
+
+            Surat: [
+                { name: "Sasuma Gujarati Thali", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c" },
+                { name: "Kansar", img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092" },
+                { name: "Sizzling Salsa", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "The Lime Tree", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de" },
+                { name: "Spice Villa", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" }
+            ],
+
+            Patna: [
+                { name: "Pind Balluchi", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c" },
+                { name: "Bansi Vihar", img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092" },
+                { name: "CookBook Cafe", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "Yellow Chilli", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de" },
+                { name: "Takshila Restaurant", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" }
+            ],
+
+            Kanpur: [
+                { name: "Treat Restaurant", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "Dhuaan Kitchen", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de" },
+                { name: "Little Chef", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" },
+                { name: "Royal Cliff", img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" },
+                { name: "Urban Crave", img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092" }
+            ],
+
+            Coimbatore: [
+                { name: "Annapoorna", img: "https://images.unsplash.com/photo-1589308078059-be1415eab4c3" },
+                { name: "Haribhavanam", img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" },
+                { name: "Junior Kuppanna", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "Bird on Tree", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de" },
+                { name: "Valarmathi Mess", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" }
+            ],
+
+            Trivandrum: [
+                { name: "Villa Maya", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9" },
+                { name: "Zam Zam", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836" },
+                { name: "Mother's Veg Plaza", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de" },
+                { name: "Ariya Nivaas", img: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" },
+                { name: "Supreme Upper Crust", img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092" }
+            ]
+
+        }
+
+        const city = localStorage.getItem("selectedCity")
+
+        document.getElementById("cityTitle").innerText = "Restaurants in " + city
+
+        const grid = document.getElementById("restaurantGrid")
+
+        restaurants[city].forEach((res, i) => {
+
+            grid.innerHTML += `
+
+<div class="col-md-3">
+
+<div class="card shadow-sm" onclick="openRestaurant(${i})">
+
+<img src="${res.img}" class="card-img-top">
+
+<div class="card-body text-center">
+
+<h5>${res.name}</h5>
+
+</div>
+
+</div>
+
+</div>
+
+`
+
+        })
+
+        function openRestaurant(i) {
+
+            localStorage.setItem("restaurantIndex", i)
+
+            window.location.href = "restaurant.html"
+
+        }
+
+    </script>
+
+</body>
+
+</html>
+```

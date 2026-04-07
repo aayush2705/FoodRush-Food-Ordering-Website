@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Menu</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f4f6f8;
+            font-family: Arial;
+        }
+
+        /* Food cards */
+
+        .food-card {
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+        }
+
+        .food-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .food-card img {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .price {
+            color: #198754;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar navbar-expand-lg px-4" style="background:#2f4a8a;">
+
+        <a class="navbar-brand text-white fw-bold fs-3" href="index.html">
+            FoodRush
+        </a>
+
+        <div class="ms-auto">
+
+            <a href="cart.html" class="btn btn-light">
+
+                🛒 Cart <span id="cartCount">0</span>
+
+            </a>
+
+        </div>
+
+    </nav>
+
+    <div class="container mt-4">
+
+        <h2 class="text-center mb-4">Menu</h2>
+
+        <div class="row g-4" id="menuItems"></div>
+
+    </div>
+
+    <script>
+
+        /* MENU ITEMS */
+
+        const menu = [
+
+            { name: "Paneer Butter Masala", img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d" },
+            { name: "Samose", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950" },
+            { name: "Veg Biryani", img: "https://images.unsplash.com/photo-1563379091339-03246963d51a" },
+            { name: "Chicken Biryani", img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398" },
+            { name: "Idli Sambhar", img: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc" },
+            { name: "Masala Dosa", img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7" },
+            { name: "Chole Bhature", img: "https://images.unsplash.com/photo-1626776876729-bab4369a5a5b" },
+            { name: "Rajma Rice", img: "https://images.unsplash.com/photo-1626500155537-93690c240b5c" },
+            { name: "Fried Rice", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b" },
+            { name: "Hakka Noodles", img: "https://images.unsplash.com/photo-1612929633738-8fe44f7ec841" },
+            { name: "Chicken Tikka", img: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec" },
+            { name: "Paneer Tikka", img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398" },
+            { name: "Gulab Jamun", img: "https://images.unsplash.com/photo-1615832496571-1b3b9a4cfd4c" }
+
+        ]
+
+        const container = document.getElementById("menuItems")
+
+        menu.forEach(item => {
+
+            let price = Math.floor(Math.random() * 300) + 100
+
+            container.innerHTML += `
+
+<div class="col-md-3">
+
+<div class="food-card">
+
+<img src="${item.img}?auto=format&fit=crop&w=600&q=70"
+loading="lazy"
+onerror="this.src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600'">
+
+<div class="p-3 text-center">
+
+<h6>${item.name}</h6>
+
+<p class="price">₹${price}</p>
+
+<button class="btn btn-primary btn-sm"
+onclick="addToCart('${item.name}',${price},'${item.img}')">
+
+Add to Cart
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`
+
+        })
+
+        /* ADD TO CART */
+
+        function addToCart(name, price, img) {
+
+            let cart = JSON.parse(localStorage.getItem("cart")) || []
+
+            let item = cart.find(i => i.name === name)
+
+            if (item) {
+
+                if (item.qty < 10) {
+
+                    item.qty += 1
+
+                } else {
+
+                    alert("Maximum 10 items allowed")
+
+                }
+
+            } else {
+
+                cart.push({
+                    name: name,
+                    price: price,
+                    img: img,
+                    qty: 1
+                })
+
+            }
+
+            localStorage.setItem("cart", JSON.stringify(cart))
+
+            updateCartCount()
+
+        }
+
+        /* UPDATE CART COUNT */
+
+        function updateCartCount() {
+
+            let cart = JSON.parse(localStorage.getItem("cart")) || []
+
+            let count = 0
+
+            cart.forEach(item => {
+                count += item.qty
+            })
+
+            document.getElementById("cartCount").innerText = count
+
+        }
+
+        updateCartCount()
+
+    </script>
+
+</body>
+
+</html>

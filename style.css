@@ -1,0 +1,174 @@
+/* BODY */
+
+body {
+    font-family: Arial;
+    background: linear-gradient(135deg, #eef2f7, #dbe6f6);
+    min-height: 100vh;
+}
+
+
+/* NAVBAR */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: #2c3e50;
+    color: white;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+    gap: 10px;
+}
+
+nav input {
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+}
+
+nav button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+/* PAGE TITLE */
+
+h2 {
+    text-align: center;
+    margin-top: 30px;
+}
+
+
+/* GRID LAYOUT */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+
+/* RESTAURANT CARD */
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+
+/* CITY CARD */
+
+.city-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: 0.3s;
+    overflow: hidden;
+    text-align: center;
+}
+
+.city-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.city-card:hover {
+    transform: scale(1.05);
+}
+
+.city-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+}
+
+.city-card h3 {
+    font-size: 20px;
+    margin: 15px 0;
+}
+
+
+
+/* MENU SECTION */
+
+.restaurant-container {
+    padding: 40px;
+}
+
+
+/* MENU GRID */
+
+#menuItems {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+
+/* MENU CARD */
+
+body {
+    background: #f4f6f8;
+    font-family: Arial;
+}
+
+.menu-card {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: 0.2s;
+    background: white;
+}
+
+.menu-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.menu-card img {
+    height: 180px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.menu-info {
+    padding: 15px;
+}
+
+.price {
+    color: #2e7d32;
+    font-weight: bold;
+}
+
+.rating {
+    color: #fff;
+    background: #48c479;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
